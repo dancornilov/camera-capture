@@ -1,0 +1,12 @@
+<div class="camera-capture">
+  <div class="g-image">
+    <img src="./assets/who_is.png" />
+  </div>
+
+  <video *ngIf="enabled" #video id="video"  width="640" height="480" autoplay></video>
+  <canvas #canvas id="canvas"  width="640" height="480"></canvas>
+
+  <div class="g-button">
+    <button class="black" (click)="executeButtonAction()">{{ getButtonName() }}</button>
+  </div>
+</div>

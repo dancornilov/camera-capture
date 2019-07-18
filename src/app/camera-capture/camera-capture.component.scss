@@ -1,0 +1,55 @@
+@mixin position() {
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.camera-capture {
+  background-color: #eee;
+  height: 450px;
+  position: relative;
+  overflow: hidden;
+  margin: 45px 0;
+
+  canvas {
+    @include position();
+    z-index: 2;
+  }
+
+  video {
+    @include position();
+    z-index: 1;
+  }
+
+  .g-svg {
+    $size: 50%;
+    $imgSize: 300px;
+    position: absolute;
+    top: $size;
+    left: $size;
+    transform: translate(-$size, -$size);
+    width: $imgSize;
+    z-index: 0;
+
+    i {
+      background-size: contain;
+      width: $imgSize;
+    }
+  }
+
+  .g-button {
+    $size: 50%;
+    position: absolute;
+    left: $size;
+    transform: translateX(-$size);
+    bottom: 60px;
+    z-index: 3;
+  }
+}
+
+.g-image {
+  text-align: center;
+}
