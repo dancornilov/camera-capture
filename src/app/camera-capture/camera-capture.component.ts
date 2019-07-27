@@ -45,6 +45,10 @@ export class CameraCaptureComponent implements OnDestroy {
     }
   }
 
+  public getMobileName(): string {
+    return this.captured ? 'Retake Photo' : 'Take Photo';
+  }
+
   public executeButtonAction(): void {
     switch (this.status) {
       case CameraStatuses.disabled:
@@ -58,6 +62,25 @@ export class CameraCaptureComponent implements OnDestroy {
         break;
       default:
         break;
+    }
+  }
+
+  public onFileSelected(event) {
+    const file = event.target.files[0];
+    const img = new Image();
+
+    if (file.type.match('image.*')) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (evt: any) => {
+        if (evt.target.readyState === FileReader.DONE) {
+          img.src = evt.target.result;
+          img.onload = () => this.canvas.nativeElement.getContext('2d').drawImage(img, 0, 0, 640, 480);
+
+          this.captured = this.canvas.nativeElement.toDataURL('image/png');
+          this.dataURItoBlob(this.canvas.nativeElement.toDataURL('image/png'));
+        }
+      };
     }
   }
 
